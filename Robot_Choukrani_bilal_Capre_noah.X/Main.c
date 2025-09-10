@@ -3,7 +3,8 @@
 #include <xc.h>
 #include "ChipConfig.h"
 #include "IO.h"
-
+#include "timer.h"
+#include "pwm.h"
 
 int main (void){
 
@@ -15,8 +16,13 @@ LED_BLEUE_1 = 1;
 LED_ORANGE_1 = 1;
 LED_ROUGE_1 = 1;
 LED_VERTE_1 = 1;
+
+InitTimer1();
+InitTimer23();
+InitPWM();
+PWMSetSpeed();                     
 while(1)
 {
-  LED_BLANCHE_1 =!LED_BLANCHE_1;  
+  
 } // fin main
 }

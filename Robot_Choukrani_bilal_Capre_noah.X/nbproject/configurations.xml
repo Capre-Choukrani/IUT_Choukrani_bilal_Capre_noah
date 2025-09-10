@@ -8,6 +8,9 @@
       <itemPath>IO.h</itemPath>
       <itemPath>timer.h</itemPath>
       <itemPath>main.h</itemPath>
+      <itemPath>robot.h</itemPath>
+      <itemPath>toolbox.h</itemPath>
+      <itemPath>pwm.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -25,6 +28,9 @@
       <itemPath>ChipConfig.c</itemPath>
       <itemPath>IO.c</itemPath>
       <itemPath>timer.c</itemPath>
+      <itemPath>robot.c</itemPath>
+      <itemPath>toolbox.c</itemPath>
+      <itemPath>pwm.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

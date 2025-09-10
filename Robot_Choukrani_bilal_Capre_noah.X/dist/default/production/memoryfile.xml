@@ -4,15 +4,15 @@
   <executable name="dist/default/production/Robot_Choukrani_bilal_Capre_noah.X.production.elf">
     <memory name="data">
       <units>bytes</units>
-      <length>28672</length>
+      <length>53248</length>
       <used>0</used>
-      <free>28672</free>
+      <free>53248</free>
     </memory>
     <memory name="program">
       <units>bytes</units>
-      <length>261888</length>
-      <used>756</used>
-      <free>261132</free>
+      <length>524544</length>
+      <used>1020</used>
+      <free>523524</free>
     </memory>
   </executable>
 </project>
