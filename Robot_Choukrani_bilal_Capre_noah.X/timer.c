@@ -7,13 +7,13 @@
 void InitTimer1(void) {
     //Timer1 pour horodater les mesures (1ms)
     T1CONbits.TON = 0; // Disable Timer
-    T1CONbits.TCKPS = 0b00; //Prescaler
+    T1CONbits.TCKPS = 0b10; //Prescaler
     //11 = 1:256 prescale value
     //10 = 1:64 prescale value
     //01 = 1:8 prescale value
     //00 = 1:1 prescale value
     T1CONbits.TCS = 0; //clock source = internal clock
-    PR1 = 0x2710; //493E pour 50 Hz et 2710 pour 6khz
+    PR1 = 60000000/100/64; //493E pour 50 Hz et 2710 pour 6khz
     IFS0bits.T1IF = 0; // Clear Timer Interrupt Flag
     IEC0bits.T1IE = 1; // Enable Timer interrupt
     T1CONbits.TON = 1; // Enable Timer
@@ -22,7 +22,8 @@ void InitTimer1(void) {
 
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     IFS0bits.T1IF = 0;
-    LED_BLANCHE_1 = !LED_BLANCHE_1;
+    PWMUpdateSpeed();  
+    //LED_BLANCHE_1 = !LED_BLANCHE_1;
 }
 //Initialisation d?un timer 32 bits
 
@@ -40,26 +41,26 @@ void InitTimer23(void) {
     IFS0bits.T3IF = 0; // Clear Timer3 Interrupt Flag
     IEC0bits.T3IE = 1; // Enable Timer3 interrupt
     T2CONbits.TON = 1; // Start 32-bit Timer
-}
-//Interruption du timer 32 bits sur 2-3
-unsigned char toggle = 0;
-void __attribute__((interrupt, no_auto_psv)) _T3Interrupt(void) {
-    IFS0bits.T3IF = 0; // Clear Timer3 Interrupt Flag
-    LED_ORANGE_1 = !LED_ORANGE_1;
-    if(toggle == 0)
-{
-PWMSetSpeed(20, MOTEUR_DROIT);
-PWMSetSpeed(20, MOTEUR_GAUCHE);
-toggle = 1;
-}
-else
-{
-PWMSetSpeed(-20, MOTEUR_DROIT);
-PWMSetSpeed(-20, MOTEUR_GAUCHE);
-toggle = 0;
+   
 }
 
-}
+unsigned char toggle = 0;
+void __attribute__((interrupt, no_auto_psv)) _T3Interrupt(void) {
+        IFS0bits.T3IF = 0; // Clear Timer3 Interrupt Flag
+        LED_ORANGE_1 = !LED_ORANGE_1;
+        if (toggle == 0) {
+            PWMSetSpeedConsigne(20, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(20, MOTEUR_GAUCHE);
+            toggle = 1;
+        } else {
+            PWMSetSpeedConsigne(-20, MOTEUR_DROIT);
+            PWMSetSpeedConsigne(-20, MOTEUR_GAUCHE);
+            toggle = 0;
+        }
+
+    }
+//Interruption du timer 32 bits sur 2-3
+
 
 
 // timer en 16 bits permet pas de compter assez longtemps donc on prend 2 timer 16 bits et on les additionne pour avoir un 32 bits ce qui nous permettra avec les prescaler de comper plus longtemps

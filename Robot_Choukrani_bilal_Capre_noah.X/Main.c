@@ -19,8 +19,7 @@ LED_VERTE_1 = 1;
 
 InitTimer1();
 InitTimer23();
-InitPWM();
-PWMSetSpeed();                     
+InitPWM();                     
 while(1)
 {
   

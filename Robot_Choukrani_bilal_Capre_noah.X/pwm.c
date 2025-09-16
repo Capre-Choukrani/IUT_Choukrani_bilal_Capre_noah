@@ -1,6 +1,9 @@
 #include <xc.h>
 #include "IO.h"
 #include "pwm.h"
+#include "robot.h"
+#include "toolbox.h"
+
 #define PWMPER 24.0
 
 void InitPWM(void) {
@@ -19,14 +22,15 @@ void InitPWM(void) {
     PTCONbits.PTEN = 1;
 }
 
-PWMSetSpeedConsigne(float vitesseEnPourcents, char moteur) {
-
-    if (moteur) {
+void PWMSetSpeedConsigne(float vitesseEnPourcents, char moteur) {
+    if (moteur == MOTEUR_GAUCHE) {
         robotState.vitesseGaucheConsigne = vitesseEnPourcents;
-    } else robotState.vitesseDroiteConsigne = vitesseEnPourcents;
+    } else if (moteur == MOTEUR_DROIT) {
+        robotState.vitesseDroiteConsigne = vitesseEnPourcents;
+    }
 }
 double talon = 50;
-float acceleration = 5;
+float acceleration = 1.0;
 
 void PWMUpdateSpeed() {
     // Cette fonction est appelee sur timer et permet de suivre des rampes d acceleration
@@ -67,7 +71,7 @@ void PWMUpdateSpeed() {
 //  vitesseEnPourcents = 25;
 //PDC1 = vitesseEnPourcents * PWMPER + talon;
 //SDC1 = talon;
-// PDC2 = vitesseEnPourcents * PWMPER + talon;
-// SDC2 = talon;}
+///PDC2 = vitesseEnPourcents * PWMPER + talon;
+//SDC2 = talon;}
 
 
