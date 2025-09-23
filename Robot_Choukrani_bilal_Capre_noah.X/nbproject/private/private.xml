@@ -4,8 +4,17 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Github/IUT_Choukrani_bilal_Capre_noah/Robot_Choukrani_bilal_Capre_noah.X/timer.c</file>
+            <file>file:/C:/Github/IUT_Choukrani_bilal_Capre_noah/Robot_Choukrani_bilal_Capre_noah.X/pwm.c</file>
+            <file>file:/C:/Github/IUT_Choukrani_bilal_Capre_noah/Robot_Choukrani_bilal_Capre_noah.X/toolbox.h</file>
             <file>file:/C:/Github/IUT_Choukrani_bilal_Capre_noah/Robot_Choukrani_bilal_Capre_noah.X/Main.c</file>
+            <file>file:/C:/Github/IUT_Choukrani_bilal_Capre_noah/Robot_Choukrani_bilal_Capre_noah.X/robot.c</file>
+            <file>file:/C:/Github/IUT_Choukrani_bilal_Capre_noah/Robot_Choukrani_bilal_Capre_noah.X/main.h</file>
+            <file>file:/C:/Github/IUT_Choukrani_bilal_Capre_noah/Robot_Choukrani_bilal_Capre_noah.X/IO.c</file>
             <file>file:/C:/Github/IUT_Choukrani_bilal_Capre_noah/Robot_Choukrani_bilal_Capre_noah.X/timer.h</file>
+            <file>file:/C:/Github/IUT_Choukrani_bilal_Capre_noah/Robot_Choukrani_bilal_Capre_noah.X/toolbox.c</file>
+            <file>file:/C:/Github/IUT_Choukrani_bilal_Capre_noah/Robot_Choukrani_bilal_Capre_noah.X/robot.h</file>
+            <file>file:/C:/Github/IUT_Choukrani_bilal_Capre_noah/Robot_Choukrani_bilal_Capre_noah.X/pwm.h</file>
+            <file>file:/C:/Github/IUT_Choukrani_bilal_Capre_noah/Robot_Choukrani_bilal_Capre_noah.X/IO.h</file>
         </group>
     </open-files>
 </project-private>
