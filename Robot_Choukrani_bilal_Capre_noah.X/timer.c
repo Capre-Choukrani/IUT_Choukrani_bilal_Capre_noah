@@ -4,10 +4,11 @@
 #include "pwm.h"
 #include "ADC.h"
 #include "main.h"
+#include "ChipConfig.h"
 //Initialisation d?un timer 16 bits
-long int FCY = 60000000;
 float freq = 2.5;
 float freq4 = 1000.0;
+unsigned long timestap = 0;
 void InitTimer1(void) {
     //Timer1 pour horodater les mesures (1ms)
     SetFreqTimer1();
@@ -95,8 +96,11 @@ void InitTimer4(void) {
 }
 void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void) {
     IFS1bits.T4IF = 0;
-    //PWMUpdateSpeed();
-    //InitADC1();
+    timestamp++;
+    OperatingSystemLoop();
+
+   PWMUpdateSpeed();
+    InitADC1();
      LED_BLANCHE_1 = !LED_BLANCHE_1;
 }
 //I
