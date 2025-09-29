@@ -26,8 +26,8 @@ void PWMSetSpeedConsigne(float vitesseEnPourcents, char moteur) {
     if (moteur == MOTEUR_GAUCHE) {
         robotState.vitesseGaucheConsigne = vitesseEnPourcents;
     } else if (moteur == MOTEUR_DROIT) {
-        robotState.vitesseDroiteConsigne = vitesseEnPourcents;
-    }
+        robotState.vitesseDroiteConsigne = -vitesseEnPourcents;
+   }
 }
 double talon = 50;
 float acceleration = 1.0;

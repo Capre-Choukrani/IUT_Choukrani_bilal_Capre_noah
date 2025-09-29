@@ -8,7 +8,9 @@
 //Initialisation d?un timer 16 bits
 float freq = 2.5;
 float freq4 = 1000.0;
-unsigned long timestap = 0;
+unsigned long timestamp = 0;
+unsigned long _millis = 0;
+
 void InitTimer1(void) {
     //Timer1 pour horodater les mesures (1ms)
     SetFreqTimer1();
@@ -28,9 +30,10 @@ void InitTimer1(void) {
 
 void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void) {
     IFS0bits.T1IF = 0;
-    PWMUpdateSpeed();
     InitADC1();
-    LED_BLEUE_1 = !LED_BLEUE_1;
+    PWMUpdateSpeed();
+
+    //LED_BLEUE_1 = !LED_BLEUE_1;
 }
 //Initialisation d?un timer 32 bits
 
@@ -55,7 +58,7 @@ unsigned char toggle = 0;
 
 void __attribute__((interrupt, no_auto_psv)) _T3Interrupt(void) {
     IFS0bits.T3IF = 0; // Clear Timer3 Interrupt Flag
-    LED_ORANGE_1 = !LED_ORANGE_1;
+    //LED_ORANGE_1 = !LED_ORANGE_1;
     if (toggle == 0) {
         PWMSetSpeedConsigne(20, MOTEUR_DROIT);
         PWMSetSpeedConsigne(20, MOTEUR_GAUCHE);
@@ -84,6 +87,7 @@ void SetFreqTimer1(void) {
     } else
         PR1 = (int) (FCY / freq);
 }
+
 void InitTimer4(void) {
     //Timer1 pour horodater les mesures (1ms)
     SetFreqTimer4();
@@ -94,16 +98,24 @@ void InitTimer4(void) {
     IEC1bits.T4IE = 1; // Enable Timer interrupt
     T4CONbits.TON = 1; // Enable Timer
 }
+
 void __attribute__((interrupt, no_auto_psv)) _T4Interrupt(void) {
     IFS1bits.T4IF = 0;
     timestamp++;
+    _millis++;
+    ADC1StartConversionSequence();
+    infra_rouge();
+
     OperatingSystemLoop();
 
-   PWMUpdateSpeed();
-    InitADC1();
-     LED_BLANCHE_1 = !LED_BLANCHE_1;
+
+
+
+    //WMUpdateSpeed();
+    //itADC1();
+    //ED_BLANCHE_1 = !LED_BLANCHE_1;
 }
-//I
+
 void SetFreqTimer4(void) {
     T4CONbits.TCKPS = 0b00; //00 = 1:1 prescaler value
     if (FCY / freq4 > 65535) {
@@ -121,7 +133,12 @@ void SetFreqTimer4(void) {
         PR4 = (int) (FCY / freq4);
 }
 
-//Interruption du timer 32 bits sur 2-3
+
+
+
+
+
+
 
 
 
