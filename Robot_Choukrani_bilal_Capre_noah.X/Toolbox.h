@@ -10,4 +10,5 @@ float LimitToInterval(float value, float lowLimit, float highLimit);
 float RadianToDegree(float value);
 float DegreeToRadian(float value);
 
-#endif	/* PWM_H */
+#endif
+

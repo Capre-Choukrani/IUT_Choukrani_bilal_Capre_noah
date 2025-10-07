@@ -1,7 +1,37 @@
-
-
+    
 #ifndef MAIN_H
 #define	MAIN_H
+
+void OperatingSystemLoop(void);
+void SetNextRobotStateInAutomaticMode(void);
+void Infrarouge_Conversion(void);
+char Operating(unsigned char binary);
+unsigned char BinaryCapteur(float capteur, int val);
+unsigned char StateBinary(void);
+void ft_LED(void);
+void ft_send_info(void);
+void ft_send_telemetre(void);
+void ft_send_motor(void);
+void ft_send_mode(void);
+void ft_send_led(void);
+
+
+
+ /////////////////////MODIF/////////////////////
+ 
+#define FREQUENCE_TIMER_1 250
+#define FREQUENCE_TIMER_4 1000
+
+#define VITESSE_ROBOT 20
+#define VITESSE_T 19
+#define VITESSE_VIRAGE 21
+
+#define DISTANCE_LIM 31
+#define DISTANCE_LIM_CENTRE 38
+#define DISTANCE_LIM_EXT 24
+
+
+ //////////////////////////////////////////
 
 #define STATE_ATTENTE 0
 #define STATE_ATTENTE_EN_COURS 1
@@ -19,23 +49,6 @@
 #define STATE_ARRET_EN_COURS 13
 #define STATE_RECULE 14
 #define STATE_RECULE_EN_COURS 15
-#define STATE_TOURNE_EXDROITE 16
-#define STATE_TOURNE_EXDROITE_EN_COURS 17
-#define STATE_TOURNE_EXGAUCHE 18
-#define STATE_TOURNE_EXGAUCHE_EN_COURS 19 
-#define STATE_TOURNE_SUR_PLACE_EXDROITE 20
-#define STATE_TOURNE_SUR_PLACE_EXDROITE_EN_COURS 21
-#define STATE_TOURNE_SUR_PLACE_EXGAUCHE 22
-#define STATE_TOURNE_SUR_PLACE_EXGAUCHE_EN_COURS 23
-#define PAS_D_OBSTACLE 0
-#define OBSTACLE_A_GAUCHE 1
-#define OBSTACLE_A_DROITE 2
-#define OBSTACLE_EN_FACE 3
-#define OBSTACLE_EXDROITE 4
-#define OBSTACLE_EXGAUCHE 5
 
-void infra_rouge(void);
-void OperatingSystemLoop(void);
-void SetNextRobotStateInAutomaticMode();
-#endif	/* MAIN_H */
+#endif
 

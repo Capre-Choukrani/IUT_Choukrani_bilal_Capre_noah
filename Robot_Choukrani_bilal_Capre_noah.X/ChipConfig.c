@@ -91,5 +91,5 @@ void InitOscillator() {
     
     // Wait for PLL to lock
     while (OSCCONbits.LOCK != 1);
-
 }
+
