@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <executable name="dist/default/production/Robot_Choukrani_bilal_Capre_noah.X.production.elf">
+    <memory name="data">
+      <units>bytes</units>
+      <length>53248</length>
+      <used>124</used>
+      <free>53124</free>
+    </memory>
+    <memory name="program">
+      <units>bytes</units>
+      <length>524544</length>
+      <used>9348</used>
+      <free>515196</free>
+    </memory>
+  </executable>
+</project>

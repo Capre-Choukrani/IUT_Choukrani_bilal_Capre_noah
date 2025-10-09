@@ -17,7 +17,7 @@ void ft_send_led(void);
 
 
 
- /////////////////////MODIF/////////////////////
+ //MODIF
  
 #define FREQUENCE_TIMER_1 250
 #define FREQUENCE_TIMER_4 1000
@@ -31,7 +31,7 @@ void ft_send_led(void);
 #define DISTANCE_LIM_EXT 24
 
 
- //////////////////////////////////////////
+
 
 #define STATE_ATTENTE 0
 #define STATE_ATTENTE_EN_COURS 1

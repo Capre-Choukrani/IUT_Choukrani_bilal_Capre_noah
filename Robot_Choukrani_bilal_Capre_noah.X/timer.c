@@ -6,13 +6,13 @@
 #include "ChipConfig.h"
 #include "robot.h"
 #include "main.h"
-#include "QEI.h"
+
 
 unsigned char toggle = 0;
 unsigned long timestamp = 0;
 unsigned long tempAction = 0;
 unsigned long _millis = 0;
-////////////////////Initialisation du timer 23 (32 bits)/////////////////////
+
 
 void InitTimer23(void)
 {
@@ -39,7 +39,6 @@ void __attribute__((interrupt, no_auto_psv)) _T3Interrupt(void)
     IFS0bits.T3IF = 0;
 }
 
-////////////////////Initialisation du timer 1 (16 bits)////////////////////
 
 void InitTimer1(void)
 {
@@ -57,7 +56,7 @@ void __attribute__((interrupt, no_auto_psv)) _T1Interrupt(void)
 {
     IFS0bits.T1IF = 0;
     PWMUpdateSpeed();   
-    SendPositionData();
+    
 }
 
 void SetFreqTimer1(float freq)
