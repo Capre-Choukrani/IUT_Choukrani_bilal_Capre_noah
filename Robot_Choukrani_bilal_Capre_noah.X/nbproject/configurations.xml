@@ -334,6 +334,11 @@
                   value="Press to select which tool pack to use"/>
         <property key="voltagevalue" value="3.25"/>
       </ICD4Tool>
+      <ICD5Tool>
+        <property key="memories.programmemory.ranges" value="0-7fffff"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/Github/IUT_Choukrani_bilal_Capre_noah/Robot_Choukrani_bilal_Capre_noah.X/debug/default/Robot_Choukrani_bilal_Capre_noah_ptg"/>
+      </ICD5Tool>
       <Tool>
         <property key="ADC 1" value="true"/>
         <property key="ADC 2" value="true"/>

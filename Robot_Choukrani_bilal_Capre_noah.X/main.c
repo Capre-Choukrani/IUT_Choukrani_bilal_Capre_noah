@@ -30,8 +30,8 @@ int main(void) {
     InitADC1();
 
 
-    int counter = 0;
-    unsigned int last;
+    //int counter = 0;
+    //unsigned int last;
 
 
     while (1) {
@@ -48,24 +48,24 @@ int main(void) {
         }
       
 
-        if (_millis - last > 500) {
-            switch (counter) {
-                case 0:
-                    ft_send_telemetre();
-                    break;
-                case 1:
-                         ft_send_motor();
-                    break;
-                case 2:
-                    ft_send_mode();
-                    break;
-                case 3:
-                    ft_send_led();
-                    break;
-            }
-            last = _millis;
-            counter = (counter + 1) % 4;
-        }
+        //if (_millis - last > 500) {
+            //switch (counter) {
+                //case 0:
+                    //ft_send_telemetre();
+                    //break;
+                //case 1:
+                         //ft_send_motor();
+                    //break;
+                //case 2:
+                    //ft_send_mode();
+                    //break;
+                //case 3:
+                    //ft_send_led();
+                    //break;
+            //}
+            //last = _millis;
+            //counter = (counter + 1) % 4;
+        //}
 
         if (robotState.mode)
             ft_LED();
