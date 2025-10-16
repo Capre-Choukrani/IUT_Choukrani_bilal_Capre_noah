@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/production/Robot_Choukrani_bilal_Capre_noah.X.production.elf">
+  <executable name="dist/default/production/Robot_Choukrani_bilal_Capre_noah.X.production.">
     <memory name="data">
       <units>bytes</units>
       <length>53248</length>

@@ -22,13 +22,13 @@ void ft_send_led(void);
 #define FREQUENCE_TIMER_1 250
 #define FREQUENCE_TIMER_4 1000
 
-#define VITESSE_ROBOT 20
+#define VITESSE_ROBOT 30
 #define VITESSE_T 19
 #define VITESSE_VIRAGE 21
 
 #define DISTANCE_LIM 31
-#define DISTANCE_LIM_CENTRE 38
-#define DISTANCE_LIM_EXT 24
+#define DISTANCE_LIM_CENTRE 36
+#define DISTANCE_LIM_EXT 22
 
 
 
