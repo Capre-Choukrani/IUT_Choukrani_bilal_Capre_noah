@@ -11,6 +11,7 @@
 #include "PWM.h"
 #include "main.h"
 #include "robot.h"
+#include "UART.h"
 
 
 unsigned char stateRobot = STATE_ATTENTE;
@@ -28,6 +29,7 @@ int main(void) {
     InitTimer23();
     InitPWM();
     InitADC1();
+    InitUART();
 
 
     //int counter = 0;
@@ -67,8 +69,11 @@ int main(void) {
             //counter = (counter + 1) % 4;
         //}
 
-        if (robotState.mode)
+        if (robotState.mode){
             ft_LED();
+        }
+        SendMessageDirect((unsigned char*) "Bonjour", 7);
+__delay32(40000000);
     }
     
     if(robotState.mode == 0){
