@@ -12,6 +12,7 @@
 #include "main.h"
 #include "robot.h"
 #include "UART.h"
+#include "CB_TX1.h"
 
 
 unsigned char stateRobot = STATE_ATTENTE;
@@ -48,68 +49,76 @@ int main(void) {
             PWMSetSpeedConsigne(0, MOTEUR_GAUCHE);
             robotState.mode = 0;
         }
-      
+
 
         //if (_millis - last > 500) {
-            //switch (counter) {
-                //case 0:
-                    //ft_send_telemetre();
-                    //break;
-                //case 1:
-                         //ft_send_motor();
-                    //break;
-                //case 2:
-                    //ft_send_mode();
-                    //break;
-                //case 3:
-                    //ft_send_led();
-                    //break;
-            //}
-            //last = _millis;
-            //counter = (counter + 1) % 4;
+        //switch (counter) {
+        //case 0:
+        //ft_send_telemetre();
+        //break;
+        //case 1:
+        //ft_send_motor();
+        //break;
+        //case 2:
+        //ft_send_mode();
+        //break;
+        //case 3:
+        //ft_send_led();
+        //break;
+        //}
+        //last = _millis;
+        //counter = (counter + 1) % 4;
         //}
 
-        if (robotState.mode){
+        if (robotState.mode) {
             ft_LED();
         }
-        SendMessageDirect((unsigned char*) "Bonjour", 7);
-__delay32(40000000);
+        int i;
+        for (i = 0; i < CB_RX1_GetDataSize(); i++) {
+            unsigned char c = CB_RX1_Get();
+            SendMessage(&c, 1);
+        }
+        __delay32(1000);
+
     }
-    
-    if(robotState.mode == 0){
+
+    if (robotState.mode == 0) {
         OperatingSystemLoop();
-        
-        
+
+
     }
+
+
+
 }
 
 
-                                                                                                                                                                                                                                                                                                                                                                                            
+
 //void ft_send_telemetre() {
-    //unsigned char telemetre[5];
-    //telemetre[0] = (unsigned char) (robotState.distanceTelemetreExtGauche);
-    //telemetre[1] = (unsigned char) (robotState.distanceTelemetreGauche);
-    //telemetre[2] = (unsigned char) (robotState.distanceTelemetreCentre);
-    //telemetre[3] = (unsigned char) (robotState.distanceTelemetreDroit);
-    //telemetre[4] = (unsigned char) (robotState.distanceTelemetreExtDroit);
-    
+//unsigned char telemetre[5];
+//telemetre[0] = (unsigned char) (robotState.distanceTelemetreExtGauche);
+//telemetre[1] = (unsigned char) (robotState.distanceTelemetreGauche);
+//telemetre[2] = (unsigned char) (robotState.distanceTelemetreCentre);
+//telemetre[3] = (unsigned char) (robotState.distanceTelemetreDroit);
+//telemetre[4] = (unsigned char) (robotState.distanceTelemetreExtDroit);
+
 //}
 
 //void ft_send_motor() {
-    //unsigned char motor[2];
-    //motor[0] = robotState.vitesseGaucheCommandeCourante;
-    //motor[1] = robotState.vitesseDroiteCommandeCourante;
-    
+//unsigned char motor[2];
+//motor[0] = robotState.vitesseGaucheCommandeCourante;
+//motor[1] = robotState.vitesseDroiteCommandeCourante;
+
 //}
 
 //void ft_send_led(void) {
-    //unsigned char led[5];
-    //led[0] = LED_BLANCHE_1;
-    //led[1] = LED_BLEUE_1;
-    //led[2] = LED_ORANGE_1;
-    //led[3] = LED_ROUGE_1;
-    //led[4] = LED_VERTE_1;
-    
+//unsigned char led[5];
+//led[0] = LED_BLANCHE_1;
+//led[1] = LED_BLEUE_1;
+//led[2] = LED_ORANGE_1;
+//led[3] = LED_ROUGE_1;
+//led[4] = LED_VERTE_1;
+
 //
 
 void ft_LED(void) {

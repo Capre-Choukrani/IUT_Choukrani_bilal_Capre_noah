@@ -167,7 +167,9 @@ namespace ExtendedSerialPort_NS
                     StartTryingToConnect();
                 }
             }
+
         }
+      
 
         ////********************************************** Output events **********************************************************************************//
         public event EventHandler<DataReceivedArgs> DataReceived;

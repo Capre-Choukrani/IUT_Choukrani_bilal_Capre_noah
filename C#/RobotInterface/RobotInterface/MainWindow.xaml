@@ -5,45 +5,86 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RobotInterface"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1000">
-    <Grid >
+        Title="MainWindow" Height="500" Width="800" Background="#FFFAFAFA">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-        <GroupBox Header="Emission" Grid.Column="0" BorderBrush="#FF123950" Margin="7,7">
-            <TextBox x:Name="textboxEmission" Background="WhiteSmoke"  KeyUp="TextBoxEmission_KeyUp"  ></TextBox>
+
+        <GroupBox x:Name="groupBox" Header="Emission" Margin="10" Background="#FFDDDDDD" BorderBrush="Black" Grid.Column="0" Grid.Row="0" Padding="10">
+            <TextBox x:Name="textBoxEmission" BorderBrush="{x:Null}" Background="{x:Null}" AcceptsReturn="True" KeyUp="textBoxEmission_KeyUp" Padding="5"/>
         </GroupBox>
-        <GroupBox Header="Reception" Grid.Row="0" Grid.Column="1" BorderBrush="SlateGray" Margin="7,7">
-            <TextBox x:Name="textboxReception" Background="WhiteSmoke" AcceptsReturn="True" ></TextBox>
+
+        <GroupBox x:Name="groupBox1" Header="Réception" Margin="10" Background="#FFDDDDDD" BorderBrush="Black" Grid.Column="1" Grid.Row="0" Padding="10">
+            <TextBox x:Name="textBoxReception" Background="{x:Null}" BorderBrush="{x:Null}" IsReadOnly="True" Padding="5"/>
         </GroupBox>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-            <Button x:Name="buttonSend" Content="Envoyer" Margin="5" Click="ButtonSend_Click" KeyUp="TextBoxEmission_KeyUp" Width="100" />
-            <Button x:Name="buttonTest" Content="Test" Margin="5" Click="ButtonTest_Click" Width="100" RenderTransformOrigin="0.508,0.571" />
-            <Button x:Name="buttonClear" Content="Effacer" Margin="5" Click="buttonClear_Click" Width="100" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="15,0,0,0">
-            <GroupBox Header="E-Leds" Grid.Row="0" Grid.Column="0" BorderBrush="SlateGray" Margin="10" Width="70" Background="WhiteSmoke">
-                <StackPanel Orientation="Vertical">
-                    <CheckBox Content="L1" HorizontalAlignment="Left" Height="21" Margin="5,3" Width="35"/>
-                    <CheckBox Content="L2" HorizontalAlignment="Left" Height="21" Margin="5,1" Width="35"/>
-                    <CheckBox Content="L3" HorizontalAlignment="Left" Height="21" Margin="5,1" Width="35"/>
-                    <CheckBox Content="L4" HorizontalAlignment="Left" Height="21" Margin="5,1" Width="35"/>
-                    <CheckBox Content="L5" HorizontalAlignment="Left" Height="21" Margin="5,1" Width="35"/>
+
+        <GroupBox x:Name="groupBoxCapteurs" Header="Valeurs des Capteurs" Margin="10" Background="#FFDDDDDD" BorderBrush="Black" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Padding="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <StackPanel Orientation="Horizontal" Margin="2">
+                        <TextBlock Text="Distance télémètre Ext Droit:" VerticalAlignment="Center"/>
+                        <TextBox x:Name="textBoxDistanceTelemetreExtDroit" Margin="2" Background="{x:Null}" BorderBrush="{x:Null}" IsReadOnly="True"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="2">
+                        <TextBlock Text="Distance télémètre Droit:" VerticalAlignment="Center"/>
+                        <TextBox x:Name="textBoxDistanceTelemetreDroit" Margin="2" Background="{x:Null}" BorderBrush="{x:Null}" IsReadOnly="True"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="2">
+                        <TextBlock Text="Distance télémètre Centre:" VerticalAlignment="Center"/>
+                        <TextBox x:Name="textBoxDistanceTelemetreCentre" Margin="2" Background="{x:Null}" BorderBrush="{x:Null}" IsReadOnly="True"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" Margin="2">
+                        <TextBlock Text="Distance télémètre Gauche:" VerticalAlignment="Center"/>
+                        <TextBox x:Name="textBoxDistanceTelemetreGauche" Margin="2" Background="{x:Null}" BorderBrush="{x:Null}" IsReadOnly="True"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="2">
+                        <TextBlock Text="Distance télémètre Ext Gauche:" VerticalAlignment="Center"/>
+                        <TextBox x:Name="textBoxDistanceTelemetreExtGauche" Margin="2" Background="{x:Null}" BorderBrush="{x:Null}" IsReadOnly="True"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="10">
+            <GroupBox x:Name="groupBoxMoteurs" Header="Valeurs des Moteurs" Margin="10" Background="#FFDDDDDD" BorderBrush="Black" Padding="10">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="Valeur moteur gauche:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="textBoxValeurMoteurGauche" Width="50" Margin="5" Background="{x:Null}" BorderBrush="{x:Null}" IsReadOnly="True"/>
+                    <TextBlock Text="Valeur moteur droit:" VerticalAlignment="Center"/>
+                    <TextBox x:Name="textBoxValeurMoteurDroit" Width="50" Margin="5" Background="{x:Null}" BorderBrush="{x:Null}" IsReadOnly="True"/>
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Télémètres IR" Grid.Row="0" Grid.Column="1" BorderBrush="SlateGray" Margin="10" Width="180">
-                <TextBox x:Name="telIR" Background="WhiteSmoke"  ></TextBox>
-            </GroupBox>
-            <GroupBox Header="Moteur" Grid.Column="0" BorderBrush="SlateGray" Margin="10" Width="220">
-                <TextBox x:Name="Mot" Background="WhiteSmoke"  ></TextBox>
-            </GroupBox>
         </StackPanel>
-            
+
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="10">
+            <CheckBox x:Name="checkBoxLED1" Content="LED 1" Tag="1" Checked="checkBoxLED_Checked" Unchecked="checkBoxLED_Unchecked" Margin="5"/>
+            <CheckBox x:Name="checkBoxLED2" Content="LED 2" Tag="2" Checked="checkBoxLED_Checked" Unchecked="checkBoxLED_Unchecked" Margin="5"/>
+            <CheckBox x:Name="checkBoxLED3" Content="LED 3" Tag="3" Checked="checkBoxLED_Checked" Unchecked="checkBoxLED_Unchecked" Margin="5"/>
+            <CheckBox x:Name="checkBoxLED4" Content="LED 4" Tag="4" Checked="checkBoxLED_Checked" Unchecked="checkBoxLED_Unchecked" Margin="5"/>
+            <CheckBox x:Name="checkBoxLED5" Content="LED 5" Tag="5" Checked="checkBoxLED_Checked" Unchecked="checkBoxLED_Unchecked" Margin="5"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="10">
+            <Button x:Name="buttonEnvoyer" Content="Envoyer" Width="120" Margin="5" Click="buttonEnvoyer_Click" Style="{StaticResource {x:Type Button}}"/>
+            <Button x:Name="buttonTest" Content="Test" Width="120" Margin="5" Click="buttonAutomatique_Click"/>
+            <Button x:Name="buttonClear" Content="Effacer" Width="120" Margin="5" Click="buttonClear_Click" Style="{StaticResource {x:Type Button}}"/>
+           
+        </StackPanel>
     </Grid>
 </Window>
