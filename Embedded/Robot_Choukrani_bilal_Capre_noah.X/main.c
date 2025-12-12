@@ -13,7 +13,7 @@
 #include "robot.h"
 #include "UART.h"
 #include "CB_TX1.h"
-
+#include "UART_Protocol.h"
 
 unsigned char stateRobot = STATE_ATTENTE;
 unsigned char nextStateRobot = 0;
@@ -79,6 +79,12 @@ int main(void) {
             SendMessage(&c, 1);
         }
         __delay32(1000);
+        
+        
+          unsigned char payload[] = {'B', 'o', 'n', 'j', 'o', 'u', 'r'};
+          UartEncodeAndSendMessage(0x0080,7,payload);
+          __delay32(40000000);
+        
 
     }
 
@@ -87,7 +93,6 @@ int main(void) {
 
 
     }
-
 
 
 }
