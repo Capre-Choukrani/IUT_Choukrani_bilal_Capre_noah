@@ -20,6 +20,7 @@ unsigned char nextStateRobot = 0;
 unsigned char lastStateRobot = 0;
 float vitesse;
 unsigned char previousStateRobot = 0xFF;
+unsigned char autoControlActivated = 1;
 
 
 int main(void) {

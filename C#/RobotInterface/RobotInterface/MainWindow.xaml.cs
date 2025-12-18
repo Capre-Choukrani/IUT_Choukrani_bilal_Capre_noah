@@ -314,11 +314,6 @@ namespace RobotInterface
         {
             Dispatcher.BeginInvoke(new Action(() =>
             {
-                
-                textBoxReception.Text += Encoding.ASCII.GetString(msgDecodedPayload);
-                textBoxReception.Text += " / fonction inconnue: 0x" + msgDecodedFunction.ToString("X4");
-                ScrollToEnd();
-                
                 switch (msgDecodedFunction)
                 {
                     case 0x0080:
@@ -349,12 +344,16 @@ namespace RobotInterface
                         buttonTest.Background = Brushes.Red;
                         break;
 
-                   
+                    default:
+                        textBoxReception.Text += Encoding.ASCII.GetString(msgDecodedPayload);
+                        textBoxReception.Text += " / fonction inconnue: 0x" + msgDecodedFunction.ToString("X4");
+                        ScrollToEnd();
+                        break;
 
-                    case 0x0060: 
+                    case 0x0050: 
                         {
-                            if (msgDecodedPayload.Length < 5)
-                                break;
+                            
+                                
 
                             int instant =
                                 (((int)msgDecodedPayload[1]) << 24) +
@@ -366,7 +365,7 @@ namespace RobotInterface
                                 ((StateRobot)(msgDecodedPayload[0])).ToString() +
                                 " - " + instant.ToString() + " ms";
 
-                            ScrollToEnd();
+                            
                             break;
                         }
 
