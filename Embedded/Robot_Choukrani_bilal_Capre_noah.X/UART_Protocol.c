@@ -48,7 +48,7 @@ void UartEncodeAndSendMessage(int msgFunction, int msgPayloadLength, unsigned ch
     SendMessage(trame, msgPayloadLength + 6);
 }
 
-/*void UartDecodeMessage(unsigned char c) {
+void UartDecodeMessage(unsigned char c) {
 
     switch (rcvState) {
         case RCV_STATE_WAITING:
@@ -132,5 +132,5 @@ void UartProcessDecodedMessage(int function, int payloadLength, unsigned char* p
             break;
     }
 
-}*/
+}
 

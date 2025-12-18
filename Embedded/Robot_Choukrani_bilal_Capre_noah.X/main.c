@@ -19,6 +19,8 @@ unsigned char stateRobot = STATE_ATTENTE;
 unsigned char nextStateRobot = 0;
 unsigned char lastStateRobot = 0;
 float vitesse;
+unsigned char previousStateRobot = 0xFF;
+
 
 int main(void) {
     vitesse = VITESSE_ROBOT;
@@ -81,18 +83,13 @@ int main(void) {
         __delay32(1000);
         
         
-          unsigned char payload[] = {'B', 'o', 'n', 'j', 'o', 'u', 'r'};
-          UartEncodeAndSendMessage(0x0080,7,payload);
-          __delay32(40000000);
         
 
     }
 
     if (robotState.mode == 0) {
         OperatingSystemLoop();
-
-
-    }
+        }
 
 
 }
