@@ -16,8 +16,6 @@ void ft_send_mode(void);
 void ft_send_led(void);
 
 
-
- //MODIF
  
 #define FREQUENCE_TIMER_1 250
 #define FREQUENCE_TIMER_4 1000

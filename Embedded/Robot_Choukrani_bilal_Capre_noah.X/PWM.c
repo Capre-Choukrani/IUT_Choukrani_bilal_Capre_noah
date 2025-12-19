@@ -66,8 +66,8 @@ void PWMUpdateSpeed() {
     }
 }
 
-/*
-void PWMSetSpeed(float vitesseEnPourcents, int moteur) {
+
+/*void PWMSetSpeed(float vitesseEnPourcents, int moteur) {
     if (moteur) {
 
         if (vitesseEnPourcents < 0) {

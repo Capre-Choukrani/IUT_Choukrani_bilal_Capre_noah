@@ -19,9 +19,8 @@ unsigned char stateRobot = STATE_ATTENTE;
 unsigned char nextStateRobot = 0;
 unsigned char lastStateRobot = 0;
 float vitesse;
-unsigned char previousStateRobot = 0xFF;
-unsigned char autoControlActivated = 1;
 
+unsigned char previousStateRobot = 0xFF;
 
 int main(void) {
     vitesse = VITESSE_ROBOT;
@@ -35,6 +34,7 @@ int main(void) {
     InitADC1();
     InitUART();
 
+    
 
     //int counter = 0;
     //unsigned int last;
@@ -82,15 +82,16 @@ int main(void) {
             SendMessage(&c, 1);
         }
         __delay32(1000);
-        
-        
-        
+
+        //Rajouté
+        UpdateRobotState();
+        //FIN
 
     }
 
     if (robotState.mode == 0) {
         OperatingSystemLoop();
-        }
+    }
 
 
 }
