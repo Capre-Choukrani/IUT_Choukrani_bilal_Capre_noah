@@ -16,6 +16,7 @@ using ExtendedSerialPort_NS;
 using System.IO.Ports;
 using System.Windows.Threading;
 using System.Collections;
+using KeyboardHook_NS;
 
 
 namespace RobotInterface
@@ -66,7 +67,7 @@ namespace RobotInterface
         public MainWindow()
         {
             InitializeComponent();
-            serialPort1 = new ExtendedSerialPort("COM10", 115200, Parity.None, 8, StopBits.One);
+            serialPort1 = new ExtendedSerialPort("COM14", 115200, Parity.None, 8, StopBits.One);
             serialPort1.DataReceived += SerialPort1_DataReceived;
             serialPort1.Open();
 
@@ -350,10 +351,10 @@ namespace RobotInterface
                         ScrollToEnd();
                         break;
 
-                    case 0x0050: 
+                    case 0x0050:
                         {
-                            
-                                
+
+
 
                             int instant =
                                 (((int)msgDecodedPayload[1]) << 24) +
@@ -365,7 +366,7 @@ namespace RobotInterface
                                 ((StateRobot)(msgDecodedPayload[0])).ToString() +
                                 " - " + instant.ToString() + " ms";
 
-                            
+
                             break;
                         }
 
@@ -373,7 +374,22 @@ namespace RobotInterface
 
                 }
             }));
+            var _globalKeyboardHook = new GlobalKeyboardHook();
+            _globalKeyboardHook.KeyPressed += _globalKeyboardHook_KeyPressed;
         }
+            
+            private void _globalKeyboardHook_KeyPressed(object? sender, KeyArgs e)
+        {
+
+        }
+
+
     }
+
 }
+
+
+       
+
+
 

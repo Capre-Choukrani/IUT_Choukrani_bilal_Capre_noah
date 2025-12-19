@@ -6,11 +6,7 @@ void SetControlMotor(unsigned char* payload);
 //Rajouté
 void SetRobotAutoControlState(unsigned char state);
 void SetRobotState(unsigned char state);
-void UpdateRobotState(void);
-void ReadTelemeters(void);
-void ApplyRobotState(void);
-void ReadTelemeters(void);
-void ApplyRobotState(void);
+void SetRobotAutoControlState(unsigned char state);
 //FIN
 
 typedef struct robotStateBITS {

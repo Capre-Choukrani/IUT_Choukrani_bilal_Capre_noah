@@ -13,13 +13,14 @@
 #include "robot.h"
 #include "UART.h"
 #include "CB_TX1.h"
+#include "CB_RX1.h"
 #include "UART_Protocol.h"
 
 unsigned char stateRobot = STATE_ATTENTE;
 unsigned char nextStateRobot = 0;
 unsigned char lastStateRobot = 0;
 float vitesse;
-
+unsigned char autoControlActivated = 1;
 unsigned char previousStateRobot = 0xFF;
 
 int main(void) {
@@ -83,9 +84,7 @@ int main(void) {
         }
         __delay32(1000);
 
-        //Rajouté
-        UpdateRobotState();
-        //FIN
+        
 
     }
 
@@ -137,6 +136,7 @@ void ft_LED(void) {
 }
 
 void OperatingSystemLoop() {
+    if(autoControlActivated){
     switch (stateRobot) {
         case STATE_ATTENTE:
             timestamp = 0;
@@ -177,6 +177,7 @@ void OperatingSystemLoop() {
         default:
             stateRobot = STATE_ATTENTE;
             break;
+    }
     }
 }
 
