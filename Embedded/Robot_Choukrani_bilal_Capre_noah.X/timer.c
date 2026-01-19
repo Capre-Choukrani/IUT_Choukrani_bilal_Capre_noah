@@ -11,7 +11,8 @@
 unsigned char toggle = 0;
 unsigned long timestamp = 0;
 unsigned long tempAction = 0;
-unsigned long _millis = 0;
+volatile unsigned long _millis = 0;
+
 
 
 void InitTimer23(void)

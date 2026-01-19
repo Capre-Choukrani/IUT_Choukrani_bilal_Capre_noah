@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <xc.h>
@@ -20,9 +21,8 @@ unsigned char stateRobot = STATE_ATTENTE;
 unsigned char nextStateRobot = 0;
 unsigned char lastStateRobot = 0;
 float vitesse;
-unsigned char autoControlActivated = 1;
 unsigned char previousStateRobot = 0xFF;
-
+static unsigned char lastStep = 255;
 int main(void) {
     vitesse = VITESSE_ROBOT;
     robotState.mode = 0;
@@ -76,14 +76,16 @@ int main(void) {
 
         if (robotState.mode) {
             ft_LED();
-        }
-        int i;
-        for (i = 0; i < CB_RX1_GetDataSize(); i++) {
-            unsigned char c = CB_RX1_Get();
-            SendMessage(&c, 1);
-        }
-        __delay32(1000);
+        }if (robotState.taskEnCours != lastStep) {
+        lastStep = robotState.taskEnCours;
+        UartSendRobotStep(lastStep);
+    }
 
+    // ===== RECEPTION UART : on DECODE (plus de loopback) =====
+    while (CB_RX1_GetDataSize() > 0) {
+        unsigned char c = CB_RX1_Get();
+        UartDecodeMessage(c);
+    }
         
 
     }

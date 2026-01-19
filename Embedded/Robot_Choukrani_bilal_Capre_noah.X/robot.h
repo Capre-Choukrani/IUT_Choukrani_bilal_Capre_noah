@@ -8,6 +8,7 @@ void SetRobotAutoControlState(unsigned char state);
 void SetRobotState(unsigned char state);
 void SetRobotAutoControlState(unsigned char state);
 //FIN
+extern volatile unsigned char autoControlActivated;
 
 typedef struct robotStateBITS {
 

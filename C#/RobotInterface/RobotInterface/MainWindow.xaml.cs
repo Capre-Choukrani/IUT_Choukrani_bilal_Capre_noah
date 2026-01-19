@@ -31,8 +31,9 @@ namespace RobotInterface
         int msgDecodedPayloadLength = 0;
         byte[] msgDecodedPayload = new byte[0];
         int msgDecodedPayloadIndex = 0;
-        bool isAutomatiqueActive = false;
+        bool isAutomatiqueActive ;
         private const int MaxQueueSize = 1000; // Limite de la taille de la file d'attente
+       
 
         public enum StateReception
         {
@@ -67,7 +68,10 @@ namespace RobotInterface
         public MainWindow()
         {
             InitializeComponent();
-            serialPort1 = new ExtendedSerialPort("COM14", 115200, Parity.None, 8, StopBits.One);
+            var _globalKeyboardHook = new GlobalKeyboardHook();
+            _globalKeyboardHook.KeyPressed += _globalKeyboardHook_KeyPressed;
+
+            serialPort1 = new ExtendedSerialPort("COM7", 115200, Parity.None, 8, StopBits.One);
             serialPort1.DataReceived += SerialPort1_DataReceived;
             serialPort1.Open();
 
@@ -98,16 +102,15 @@ namespace RobotInterface
 
         private void buttonAutomatique_Click(object sender, RoutedEventArgs e)
         {
+            // Toggle UI
             isAutomatiqueActive = !isAutomatiqueActive;
-            if (isAutomatiqueActive)
-            {
-                buttonTest.Background = Brushes.Green;
-            }
-            else
-            {
-                buttonTest.Background = Brushes.Red;
-            }
+            buttonTest.Background = isAutomatiqueActive ? Brushes.Green : Brushes.Red;
+
+            // Envoi au dsPIC : 1 = auto, 0 = manuel
+            byte mode = (byte)(isAutomatiqueActive ? 1 : 0);
+            UartEncodeAndSendMessage(0x0052, 1, new byte[] { mode });
         }
+
 
         private void checkBoxLED_Checked(object sender, RoutedEventArgs e)
         {
@@ -281,14 +284,14 @@ namespace RobotInterface
             byte checksum = 0;
 
             checksum ^= 0xFE;
-            checksum ^= 0x00;
-            checksum ^= (byte)msgFunction;
-            checksum ^= (byte)msgPayloadLength;
+            checksum ^= (byte)(msgFunction >> 8);      // func MSB
+            checksum ^= (byte)(msgFunction & 0xFF);    // func LSB
+            checksum ^= (byte)(msgPayloadLength >> 8); // len MSB
+            checksum ^= (byte)(msgPayloadLength & 0xFF);// len LSB
 
             for (int i = 0; i < msgPayloadLength; i++)
-            {
                 checksum ^= msgPayload[i];
-            }
+
             return checksum;
         }
 
@@ -297,17 +300,16 @@ namespace RobotInterface
             byte[] trame = new byte[msgPayloadLength + 6];
 
             trame[0] = 0xFE;
-            trame[1] = 0x00;
-            trame[2] = (byte)msgFunction;
+            trame[1] = (byte)(msgFunction >> 8);       // MSB
+            trame[2] = (byte)(msgFunction & 0xFF);     // LSB
             trame[3] = (byte)(msgPayloadLength >> 8);
             trame[4] = (byte)(msgPayloadLength & 0xFF);
 
             for (int i = 0; i < msgPayloadLength; i++)
-            {
                 trame[i + 5] = msgPayload[i];
-            }
 
             trame[msgPayloadLength + 5] = CalculateChecksum(msgFunction, msgPayloadLength, msgPayload);
+
             serialPort1.Write(trame, 0, trame.Length);
         }
 
@@ -321,8 +323,6 @@ namespace RobotInterface
                         textBoxReception.Text += Encoding.ASCII.GetString(msgDecodedPayload);
                         ScrollToEnd();
                         break;
-
-
 
                     case 0x0030:
                         textBoxDistanceTelemetreExtGauche.Text = msgDecodedPayload[0] + " cm";
@@ -345,17 +345,8 @@ namespace RobotInterface
                         buttonTest.Background = Brushes.Red;
                         break;
 
-                    default:
-                        textBoxReception.Text += Encoding.ASCII.GetString(msgDecodedPayload);
-                        textBoxReception.Text += " / fonction inconnue: 0x" + msgDecodedFunction.ToString("X4");
-                        ScrollToEnd();
-                        break;
-
                     case 0x0050:
                         {
-
-
-
                             int instant =
                                 (((int)msgDecodedPayload[1]) << 24) +
                                 (((int)msgDecodedPayload[2]) << 16) +
@@ -365,28 +356,51 @@ namespace RobotInterface
                             textBoxReception.Text += "\nRobot State : " +
                                 ((StateRobot)(msgDecodedPayload[0])).ToString() +
                                 " - " + instant.ToString() + " ms";
-
-
+                            ScrollToEnd();
                             break;
                         }
 
-
-
+                    default:
+                        textBoxReception.Text += Encoding.ASCII.GetString(msgDecodedPayload);
+                        textBoxReception.Text += " / fonction inconnue: 0x" + msgDecodedFunction.ToString("X4");
+                        ScrollToEnd();
+                        break;
                 }
             }));
-            var _globalKeyboardHook = new GlobalKeyboardHook();
-            _globalKeyboardHook.KeyPressed += _globalKeyboardHook_KeyPressed;
+
+
         }
-            
-            private void _globalKeyboardHook_KeyPressed(object? sender, KeyArgs e)
+        private void _globalKeyboardHook_KeyPressed(object? sender, KeyArgs e)
         {
-
+            if (isAutomatiqueActive == false)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.LEFT:
+                        UartEncodeAndSendMessage(0x0051, 1, new byte[] {(byte)StateRobot.STATE_TOURNE_SUR_PLACE_GAUCHE });
+                        break;
+                    case KeyCode.RIGHT:
+                        UartEncodeAndSendMessage(0x0051, 1, new byte[] {(byte)StateRobot.STATE_TOURNE_SUR_PLACE_DROITE });
+                        break;
+                    case KeyCode.UP:
+                        UartEncodeAndSendMessage(0x0051, 1, new byte[] {(byte)StateRobot.STATE_AVANCE });
+                        break;
+                    case KeyCode.DOWN:
+                        UartEncodeAndSendMessage(0x0051, 1, new byte[] {(byte)StateRobot.STATE_ARRET });
+                        break;
+                    case KeyCode.PAGEDOWN:
+                        UartEncodeAndSendMessage(0x0051, 1, new byte[] {(byte)StateRobot.STATE_RECULE });
+                        break;
+                }
+            }
         }
-
 
     }
 
+
 }
+
+
 
 
        

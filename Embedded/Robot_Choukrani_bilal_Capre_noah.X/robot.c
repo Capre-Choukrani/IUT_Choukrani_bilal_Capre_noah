@@ -12,8 +12,11 @@
 
 
 volatile ROBOT_STATE_BITS robotState;
+volatile unsigned char autoControlActivated = 1;  // 1 = auto par défaut
+extern unsigned char stateRobot;
 
-unsigned char autoControlActivated = 1;
+
+
    // 1 = automatique, 0 = manuel
 
 void SetRobotAutoControlState(unsigned char state)
@@ -33,7 +36,8 @@ void SetRobotState(unsigned char state)
 {
     if(autoControlActivated == 0)   // seulement en manuel
     {
-        robotState.taskEnCours = state;
+        stateRobot = state;
+        
     }
 }
 

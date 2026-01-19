@@ -1,4 +1,5 @@
 #include <xc.h>
+#include <stdint.h>
 #include "UART_Protocol.h"
 #include "CB_TX1.h"
 #include "CB_RX1.h"
@@ -15,13 +16,15 @@ int msgDecodedPayloadIndex = 0;
 int rcvState = 0;
 unsigned char calculatedChecksum;
 
+
 unsigned char UartCalculateChecksum(int msgFunction, int msgPayloadLength, unsigned char* msgPayload) {
     unsigned char checksum = 0;
 
     checksum ^= 0xFE;
-    checksum ^= 0x00;
-    checksum ^= (unsigned char) msgFunction;
-    checksum ^= (unsigned char) msgPayloadLength;
+    checksum ^= (unsigned char)(msgFunction >> 8);      // func MSB
+    checksum ^= (unsigned char)(msgFunction & 0xFF);    // func LSB
+    checksum ^= (unsigned char)(msgPayloadLength >> 8); // len MSB
+    checksum ^= (unsigned char)(msgPayloadLength & 0xFF);// len LSB
 
     for (int i = 0; i < msgPayloadLength; i++) {
         checksum ^= msgPayload[i];
@@ -30,14 +33,16 @@ unsigned char UartCalculateChecksum(int msgFunction, int msgPayloadLength, unsig
     return checksum;
 }
 
-void UartEncodeAndSendMessage(int msgFunction, int msgPayloadLength, unsigned char* msgPayload) {
+
+void UartEncodeAndSendMessage(int msgFunction, int msgPayloadLength, unsigned char* msgPayload)
+{
     unsigned char trame[msgPayloadLength + 6];
 
     trame[0] = 0xFE;
-    trame[1] = 0x00;
-    trame[2] = (unsigned char) msgFunction;
-    trame[3] = (unsigned char) (msgPayloadLength >> 8);
-    trame[4] = (unsigned char) (msgPayloadLength & 0xFF);
+    trame[1] = (unsigned char)(msgFunction >> 8);     // MSB
+    trame[2] = (unsigned char)(msgFunction & 0xFF);   // LSB
+    trame[3] = (unsigned char)(msgPayloadLength >> 8);
+    trame[4] = (unsigned char)(msgPayloadLength & 0xFF);
 
     for (int i = 0; i < msgPayloadLength; i++) {
         trame[i + 5] = msgPayload[i];
@@ -47,6 +52,7 @@ void UartEncodeAndSendMessage(int msgFunction, int msgPayloadLength, unsigned ch
 
     SendMessage(trame, msgPayloadLength + 6);
 }
+
 
 void UartDecodeMessage(unsigned char c) {
 
@@ -102,35 +108,55 @@ void UartDecodeMessage(unsigned char c) {
 
 void UartProcessDecodedMessage(int function, int payloadLength, unsigned char* payload) {
 
-
     switch (function) {
-        case SET_ROBOT_STATE:
-            tempAction = 0;
-            robotState.mode = 1;
-            break;
 
-        case SET_ROBOT_MANUAL_CONTROL:
-            robotState.mode = 0;
-            break;
+        case SET_ROBOT_STATE:
+    if (payloadLength >= 1) {
+        SetRobotState(payload[0]);   // force l'état demandé
+    }
+    break;
+
+case SET_ROBOT_MANUAL_CONTROL:
+    if (payloadLength >= 1) {
+        SetRobotAutoControlState(payload[0]); // 0 = manuel, 1 = auto
+    }
+    break;
+
 
         case SET_ROBOT_MOTOR:
-            PWMSetSpeedConsigne((int8_t) payload[0], MOTEUR_DROIT);
-            PWMSetSpeedConsigne((int8_t) payload[1], MOTEUR_GAUCHE);
-            break;
-        case SET_ROBOT_LED:
-            if (!robotState.mode) {
-                LED_BLANCHE_1 = payload[0];
-                LED_BLEUE_1 = payload[1];
-                LED_ORANGE_1 = payload[2];
-                LED_ROUGE_1 = payload[3];
-                LED_VERTE_1 = payload[4];
+            // généralement autorisé seulement si manuel
+            if (payloadLength >= 2 && robotState.mode == 0) {
+                PWMSetSpeedConsigne((int8_t) payload[0], MOTEUR_DROIT);
+                PWMSetSpeedConsigne((int8_t) payload[1], MOTEUR_GAUCHE);
             }
             break;
 
+        case SET_ROBOT_LED:
+            if (payloadLength >= 5 && robotState.mode == 0) {
+                LED_BLANCHE_1 = payload[0];
+                LED_BLEUE_1   = payload[1];
+                LED_ORANGE_1  = payload[2];
+                LED_ROUGE_1   = payload[3];
+                LED_VERTE_1   = payload[4];
+            }
+            break;
 
         default:
             break;
     }
-
 }
+void UartSendRobotStep(unsigned char step)
+{
+    unsigned char payload[5];
+    uint32_t t = _millis;
+
+    payload[0] = step;
+    payload[1] = (unsigned char)(t >> 24);
+    payload[2] = (unsigned char)(t >> 16);
+    payload[3] = (unsigned char)(t >> 8);
+    payload[4] = (unsigned char)(t & 0xFF);
+
+    UartEncodeAndSendMessage(MSG_ROBOT_STATE, 5, payload);
+}
+
 
