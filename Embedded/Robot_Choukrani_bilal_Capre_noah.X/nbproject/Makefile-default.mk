@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=ChipConfig.c IO.c timer.c robot.c ADC.c main.c PWM.c Toolbox.c UART.c CB_TX1.c CB_RX1.c UART_Protocol.c
+SOURCEFILES_QUOTED_IF_SPACED=ChipConfig.c IO.c timer.c robot.c ADC.c main.c PWM.c Toolbox.c UART.c CB_TX1.c CB_RX1.c UART_Protocol.c QEI.c Utilities.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/ChipConfig.o ${OBJECTDIR}/IO.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/robot.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/main.o ${OBJECTDIR}/PWM.o ${OBJECTDIR}/Toolbox.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/CB_TX1.o ${OBJECTDIR}/CB_RX1.o ${OBJECTDIR}/UART_Protocol.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/ChipConfig.o.d ${OBJECTDIR}/IO.o.d ${OBJECTDIR}/timer.o.d ${OBJECTDIR}/robot.o.d ${OBJECTDIR}/ADC.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/PWM.o.d ${OBJECTDIR}/Toolbox.o.d ${OBJECTDIR}/UART.o.d ${OBJECTDIR}/CB_TX1.o.d ${OBJECTDIR}/CB_RX1.o.d ${OBJECTDIR}/UART_Protocol.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/ChipConfig.o ${OBJECTDIR}/IO.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/robot.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/main.o ${OBJECTDIR}/PWM.o ${OBJECTDIR}/Toolbox.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/CB_TX1.o ${OBJECTDIR}/CB_RX1.o ${OBJECTDIR}/UART_Protocol.o ${OBJECTDIR}/QEI.o ${OBJECTDIR}/Utilities.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/ChipConfig.o.d ${OBJECTDIR}/IO.o.d ${OBJECTDIR}/timer.o.d ${OBJECTDIR}/robot.o.d ${OBJECTDIR}/ADC.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/PWM.o.d ${OBJECTDIR}/Toolbox.o.d ${OBJECTDIR}/UART.o.d ${OBJECTDIR}/CB_TX1.o.d ${OBJECTDIR}/CB_RX1.o.d ${OBJECTDIR}/UART_Protocol.o.d ${OBJECTDIR}/QEI.o.d ${OBJECTDIR}/Utilities.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/ChipConfig.o ${OBJECTDIR}/IO.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/robot.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/main.o ${OBJECTDIR}/PWM.o ${OBJECTDIR}/Toolbox.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/CB_TX1.o ${OBJECTDIR}/CB_RX1.o ${OBJECTDIR}/UART_Protocol.o
+OBJECTFILES=${OBJECTDIR}/ChipConfig.o ${OBJECTDIR}/IO.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/robot.o ${OBJECTDIR}/ADC.o ${OBJECTDIR}/main.o ${OBJECTDIR}/PWM.o ${OBJECTDIR}/Toolbox.o ${OBJECTDIR}/UART.o ${OBJECTDIR}/CB_TX1.o ${OBJECTDIR}/CB_RX1.o ${OBJECTDIR}/UART_Protocol.o ${OBJECTDIR}/QEI.o ${OBJECTDIR}/Utilities.o
 
 # Source Files
-SOURCEFILES=ChipConfig.c IO.c timer.c robot.c ADC.c main.c PWM.c Toolbox.c UART.c CB_TX1.c CB_RX1.c UART_Protocol.c
+SOURCEFILES=ChipConfig.c IO.c timer.c robot.c ADC.c main.c PWM.c Toolbox.c UART.c CB_TX1.c CB_RX1.c UART_Protocol.c QEI.c Utilities.c
 
 
 
@@ -161,6 +161,18 @@ ${OBJECTDIR}/UART_Protocol.o: UART_Protocol.c  .generated_files/flags/default/ca
 	@${RM} ${OBJECTDIR}/UART_Protocol.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  UART_Protocol.c  -o ${OBJECTDIR}/UART_Protocol.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/UART_Protocol.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD4=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
+${OBJECTDIR}/QEI.o: QEI.c  .generated_files/flags/default/6d379214c12426e616d98c4356b23613256ede91 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/QEI.o.d 
+	@${RM} ${OBJECTDIR}/QEI.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  QEI.c  -o ${OBJECTDIR}/QEI.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/QEI.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD4=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/Utilities.o: Utilities.c  .generated_files/flags/default/d5f54e436b0e653d6bf52d38065e1bfbfcfba18c .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Utilities.o.d 
+	@${RM} ${OBJECTDIR}/Utilities.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  Utilities.c  -o ${OBJECTDIR}/Utilities.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/Utilities.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD4=1  -mno-eds-warn  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
 else
 ${OBJECTDIR}/ChipConfig.o: ChipConfig.c  .generated_files/flags/default/a5c6851af42e60e06c51cc2c41e2c80fa6a3dfc9 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}" 
@@ -233,6 +245,18 @@ ${OBJECTDIR}/UART_Protocol.o: UART_Protocol.c  .generated_files/flags/default/ee
 	@${RM} ${OBJECTDIR}/UART_Protocol.o.d 
 	@${RM} ${OBJECTDIR}/UART_Protocol.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  UART_Protocol.c  -o ${OBJECTDIR}/UART_Protocol.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/UART_Protocol.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/QEI.o: QEI.c  .generated_files/flags/default/b82decb1e04fc675546022af784be46d8f5f4496 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/QEI.o.d 
+	@${RM} ${OBJECTDIR}/QEI.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  QEI.c  -o ${OBJECTDIR}/QEI.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/QEI.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/Utilities.o: Utilities.c  .generated_files/flags/default/7ec85cb04e06da31ace5df850ce6b99f03dd58c7 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Utilities.o.d 
+	@${RM} ${OBJECTDIR}/Utilities.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  Utilities.c  -o ${OBJECTDIR}/Utilities.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/Utilities.o.d"      -mno-eds-warn  -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 endif
 
